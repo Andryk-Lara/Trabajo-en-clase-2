@@ -3,6 +3,7 @@
 
 const listaTareas = document.getElementById('new-task-form');
 const listContainer = document.getElementById('task-list');
+const tareas = [];
 let contadorTareas = 0;
 
 listaTareas.addEventListener('submit', (event) => {
@@ -21,4 +22,13 @@ listaTareas.addEventListener('submit', (event) => {
   list.appendChild(checkbox);
   list.appendChild(label)
   listContainer.appendChild(list);
+  const misTareas = {
+    id: contadorTareas,
+    nombre: listaTareas.elements[0].value,
+    completo: false,
+  };
+  tareas.push(misTareas);
+  console.log(tareas);
+  contadorTareas++;
+  listaTareas.elements[0].value = '';
 })
