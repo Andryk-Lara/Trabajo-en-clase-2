@@ -3,10 +3,24 @@
 
 //Modelo
 
-const tareas = [];
+let tareas = [];
 
 let contadorTareas = 0;
 
+const datosLocalStorage = localStorage.getItem('tareas');
+
+if (datosLocalStorage){
+  tareas = JSON.parse(datosLocalStorage);
+}
+
+const contadorLocalStorage = localStorage.getItem('contador');
+console.log(contadorLocalStorage);
+
+console.log(tareas);
+
+if (contadorLocalStorage) {
+  contadorTareas = parseInt(contadorLocalStorage);
+}
 function addTask(nombreTarea,fechaTarea, completoTarea){
   const misTareas = {
     id: contadorTareas,
@@ -17,8 +31,9 @@ function addTask(nombreTarea,fechaTarea, completoTarea){
 
   tareas.push(misTareas);
   contadorTareas++;
-
-  return misTareas;
+  localStorage.setItem('contador', contadorTareas);
+  localStorage.setItem('tareas', JSON.stringify(tareas));
+  return(misTareas);
 }
 
 //Vista
@@ -40,6 +55,10 @@ function appendTaskDOM(tarea){
   list.appendChild(checkbox);
   list.appendChild(label)
   listContainer.appendChild(list);
+}
+
+for(let i = 0; i < tareas.length; i++){
+  appendTaskDOM(tareas[i]);
 }
 
 //Controlador
